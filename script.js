@@ -2,30 +2,54 @@
 const GameBoard = (() => {
     'use strict';
     const board = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
+    const playersList = [];
     const boardinit = () => { 
         renderToDivs();
-        getSelectedDiv();
+        getPlayerChoice();
     };
 
-    const getInputDivs = () => {
-        const boxs = [];
+    const getPossibleChoices = () => {
+        const boxes = [];
         for (let index = 0; index < 9; index++) {
-            boxs[index] = document.getElementById(index);
+            boxes[index] = document.getElementById(index);
         }
-        return boxs;
+        return boxes;
     };
 
-    const getSelectedDiv = () => {
-        getInputDivs().forEach((div) => {
-            div.addEventListener('click', () => {
-                console.log(div);
+    const changeTurn = () => {
+        playersList.forEach((player) => {
+            if (player.turn == true) {
+                player.turn = false;
+            }
+            else {
+                player.turn = true;
+            }
+        });
+    };
+
+    const getPlayerSymbol = () => {
+        let currentplayer = 'none';
+        playersList.forEach((player) => {
+            if (player.turn == true) {
+                currentplayer = player.symbol;
+            }
+        });
+        return currentplayer;
+    };
+
+    const getPlayerChoice = () => {
+        getPossibleChoices().forEach((div) => {
+            div.addEventListener('click', (event) => {
+                console.log(getPlayerSymbol());
+                setCell(event.target.id, getPlayerSymbol());
+                changeTurn();
+                renderToDivs();
             });
         });
     };
 
     const renderToDivs = () => {
-        const selectedDiv = getInputDivs();
+        const selectedDiv = getPossibleChoices();
         for (let index = 0; index < 9; index++) {
             selectedDiv[index].textContent = board[index];
         }
@@ -48,19 +72,27 @@ const GameBoard = (() => {
 
     boardinit();
     return {
-        getInputDivs,
-        setCell, 
-        resetBoard,
-        showBoard,
-        getSelectedDiv 
+        playersList,
+        getPossibleChoices,
+        setCell,
+        getPlayerChoice 
     };
 
 })();
 
-function Players(name, symbol) {
+let p1 = PlayersFactory('joe', 'X');
+let p2 = PlayersFactory('mama', 'O');
+
+function PlayersFactory(name, symbol) {   
+    let turn = false;
+    if(GameBoard.playersList.length == 0) {
+        turn = true;
+    }
+    GameBoard.playersList.push({name, symbol, turn});
     return {
         name,
-        symbol
+        symbol,
+        turn
     };
 }
 
