@@ -1,7 +1,7 @@
 
 const GameBoard = (() => {
     'use strict';
-    const board = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const board = ['1', '', '', '2', '', '', '3', '', ''];
     const playersList = [];
     const boardinit = () => { 
         renderToDivs();
@@ -40,9 +40,9 @@ const GameBoard = (() => {
     const getPlayerChoice = () => {
         getPossibleChoices().forEach((div) => {
             div.addEventListener('click', (event) => {
-                console.log(getPlayerSymbol());
                 setCell(event.target.id, getPlayerSymbol());
                 changeTurn();
+                checkRows()
                 renderToDivs();
             });
         });
@@ -58,6 +58,18 @@ const GameBoard = (() => {
     const setCell = (index, value) => {
         board[index] = value;
     };
+
+    const checkRows = () => {
+        let tempBoard = board;
+        let boardrow1 = tempBoard.splice(0,2);
+        let boardrow2 = tempBoard.splice(3);
+        let boardrow3 = tempBoard;
+        console.log(boardrow1);
+        console.log(boardrow2);
+        console.log(boardrow3);
+
+    };
+    
 
     const resetBoard = () => {
         board.forEach((index) => {
