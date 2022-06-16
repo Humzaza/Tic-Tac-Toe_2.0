@@ -53,13 +53,81 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family:'Courier New', Courier, monospace;
 }
 
 .menuInfo {
-    height: 600px;
+    height: 500px;
     width: 700px;
     border: 2px solid black;
     background-color: white;
     display: grid;
-    grid-template-rows: 0.2fr 3fr 0.2fr;
+    grid-template-rows: 0.2fr 3fr 0.5fr;
+}
+
+.menuTop {
+    display: grid;
+    grid-template-columns: 4fr 0.15fr;
+    text-align: center;
+    padding: 3px 0 0 0;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.menuTitle {
+    padding: 0 0 0 20px;
+}
+
+.menuContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+
+.menuBot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuLeft {
+    display: grid;
+    grid-template-rows: 0.3fr repeat(3, 1fr);
+}
+
+.menuRight {
+    display: grid;
+    grid-template-rows: 0.3fr repeat(3, 1fr);
+}
+
+.player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+}
+
+.name {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap: 10px;
+}
+
+.whosPlaying{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playerBut {
+    height: 50px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+.startBut {
+    height: 50px;
+    width: 150px;
+    border-radius: 10px;
 }
