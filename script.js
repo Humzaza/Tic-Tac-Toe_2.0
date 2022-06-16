@@ -1,7 +1,7 @@
 
 const GameBoard = (() => {
     'use strict';
-    const board = ['', '', '', '', '', '', '', '', ''];
+    const board = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const playersList = [];
     const boardinit = () => { 
         renderToDivs();
@@ -41,45 +41,28 @@ const GameBoard = (() => {
         getPossibleChoices().forEach((div) => {
             div.addEventListener('click', (event) => {
                 setCell(event.target.id, getPlayerSymbol());
+                renderToDivs();                
                 changeTurn();
-                checkRows()
-                renderToDivs();
             });
         });
     };
 
     const renderToDivs = () => {
-        const selectedDiv = getPossibleChoices();
-        for (let index = 0; index < 9; index++) {
-            selectedDiv[index].textContent = board[index];
+        if (Checker().checkColumns() == undefined) {
+            const selectedDiv = getPossibleChoices();
+            for (let index = 0; index < 9; index++) {
+                selectedDiv[index].textContent = board[index];
+            }
         }
+        else {
+            alert(getPlayerSymbol());
+        }
+
     };
 
     const setCell = (index, value) => {
         board[index] = value;
     };
-
-    const checkRows = () => { 
-        if (board[0] != '' && board[1] != '' && board[2] != '') {
-            if (board[0] == board[1] && board[0] == board[2] ) {
-                console.log('wins');
-            }
-        }
-
-        if (board[3] != '' && board[4] != '' && board[5] != '') {
-            if (board[3] == board[4] && board[3] == board[5]) {
-                console.log('wins2');
-            }
-        }
-        
-        if (board[6] != '' && board[7] != '' && board[8] != '') {
-            if (board[6] == board[7] && board[6] == board[8]) {
-                console.log('wins3');
-            }
-        }
-
-    };
-    
 
     const resetBoard = () => {
         board.forEach((index) => {
@@ -92,6 +75,54 @@ const GameBoard = (() => {
         return currentBoard;
     };
 
+    const Checker = (() => {
+        const checkColumns = () => { 
+            if (board[0] != '' && board[3] != '' && board[6] != '') {
+                if (board[0] == board[3] && board[0] == board[6] ) {
+                    return getPlayerSymbol();
+                }
+            }
+    
+            if (board[1] != '' && board[4] != '' && board[7] != '') {
+                if (board[1] == board[4] && board[1] == board[7]) {
+                    return getPlayerSymbol();
+                }
+            }
+            
+            if (board[2] != '' && board[5] != '' && board[8] != '') {
+                if (board[2] == board[5] && board[2] == board[8]) {
+                    return getPlayerSymbol();
+                }
+            }
+    
+        };
+    
+        const checkRows = () => { 
+            if (board[0] != '' && board[1] != '' && board[2] != '') {
+                if (board[0] == board[1] && board[0] == board[2] ) {
+                    return getPlayerSymbol();
+                }
+            }
+    
+            if (board[3] != '' && board[4] != '' && board[5] != '') {
+                if (board[3] == board[4] && board[3] == board[5]) {
+                    return getPlayerSymbol();
+                }
+            }
+            
+            if (board[6] != '' && board[7] != '' && board[8] != '') {
+                if (board[6] == board[7] && board[6] == board[8]) {
+                    return getPlayerSymbol();
+                }
+            }
+    
+        };
+        return{checkColumns, checkRows};
+    });
+
+
+
+
     boardinit();
     return {
         playersList,
@@ -101,6 +132,8 @@ const GameBoard = (() => {
     };
 
 })();
+
+
 
 let p1 = PlayersFactory('joe', 'X');
 let p2 = PlayersFactory('mama', 'O');
