@@ -1,7 +1,7 @@
 
 const GameBoard = (() => {
     'use strict';
-    const board = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const board = ['', '', '', '', '', '', '', '', ''];
     const playersList = [];
     const boardinit = () => { 
         renderToDivs();
@@ -37,10 +37,21 @@ const GameBoard = (() => {
         return currentplayer;
     };
 
+    const getPlayerName = () => {
+        let currentplayer = 'none';
+        playersList.forEach((player) => {
+            if (player.turn == true) {
+                currentplayer = player.name;
+            }
+        });
+        return currentplayer;
+    };
+
     const getPlayerChoice = () => {
         getPossibleChoices().forEach((div) => {
             div.addEventListener('click', (event) => {
                 setCell(event.target.id, getPlayerSymbol());
+                Checker().checkAll();
                 renderToDivs();                
                 changeTurn();
             });
@@ -48,21 +59,25 @@ const GameBoard = (() => {
     };
 
     const renderToDivs = () => {
-        if (Checker().checkAll() == undefined) {
             const selectedDiv = getPossibleChoices();
             for (let index = 0; index < 9; index++) {
                 selectedDiv[index].textContent = board[index];
             }
-        }
-        else {
-            alert(getPlayerSymbol());
-        }
-
     };
 
     const setCell = (index, value) => {
-        board[index] = value;
+        if (board[index] == '' && Checker().checkAll() == undefined) {
+            board[index] = value;
+        }
     };
+
+    const declareWinner = () => {
+            let winner = document.querySelector('.winner');
+            console.log(winner);
+            winner.textContent = `winner is ${getPlayerName()}`;
+    };
+
+
 
     const resetBoard = () => {
         board.forEach((index) => {
@@ -75,22 +90,27 @@ const GameBoard = (() => {
         return currentBoard;
     };
 
+
+
     const Checker = (() => {
         const checkColumns = () => { 
             if (board[0] != '' && board[3] != '' && board[6] != '') {
                 if (board[0] == board[3] && board[0] == board[6] ) {
+                    declareWinner();
                     return getPlayerSymbol();
                 }
             }
     
             if (board[1] != '' && board[4] != '' && board[7] != '') {
                 if (board[1] == board[4] && board[1] == board[7]) {
+                    declareWinner();
                     return getPlayerSymbol();
                 }
             }
             
             if (board[2] != '' && board[5] != '' && board[8] != '') {
                 if (board[2] == board[5] && board[2] == board[8]) {
+                    declareWinner();
                     return getPlayerSymbol();
                 }
             }
@@ -100,18 +120,21 @@ const GameBoard = (() => {
         const checkRows = () => { 
             if (board[0] != '' && board[1] != '' && board[2] != '') {
                 if (board[0] == board[1] && board[0] == board[2] ) {
+                    declareWinner();
                     return getPlayerSymbol();
                 }
             }
     
             if (board[3] != '' && board[4] != '' && board[5] != '') {
                 if (board[3] == board[4] && board[3] == board[5]) {
+                    declareWinner();
                     return getPlayerSymbol();
                 }
             }
             
             if (board[6] != '' && board[7] != '' && board[8] != '') {
                 if (board[6] == board[7] && board[6] == board[8]) {
+                    declareWinner();
                     return getPlayerSymbol();
                 }
             }
@@ -121,17 +144,19 @@ const GameBoard = (() => {
         const checkDiagonals = () => {
             if (board[0] != '' && board[4] != '' && board[8] != '') {
                 if (board[0] == board[4] && board[0] == board[8] ) {
+                    declareWinner();
                     return getPlayerSymbol();
                 }
             }
 
             if (board[2] != '' && board[4] != '' && board[6] != '') {
                 if (board[2] == board[4] && board[2] == board[6] ) {
+                    declareWinner();
                     return getPlayerSymbol();
                 }
             }
         };
-        console.log(checkDiagonals());
+        
         const checkAll = () => {
             return checkColumns() || checkRows() || checkDiagonals();
         };

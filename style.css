@@ -43,3 +43,23 @@ footer {
     align-items: center;
     background-color: #6665DD ;
 }
+
+
+.menu {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.582);    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuInfo {
+    height: 600px;
+    width: 700px;
+    border: 2px solid black;
+    background-color: white;
+    display: grid;
+    grid-template-rows: 0.2fr 3fr 0.2fr;
+}
