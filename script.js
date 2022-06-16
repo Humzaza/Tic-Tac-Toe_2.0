@@ -48,7 +48,7 @@ const GameBoard = (() => {
     };
 
     const renderToDivs = () => {
-        if (Checker().checkColumns() == undefined) {
+        if (Checker().checkAll() == undefined) {
             const selectedDiv = getPossibleChoices();
             for (let index = 0; index < 9; index++) {
                 selectedDiv[index].textContent = board[index];
@@ -117,11 +117,26 @@ const GameBoard = (() => {
             }
     
         };
-        return{checkColumns, checkRows};
+
+        const checkDiagonals = () => {
+            if (board[0] != '' && board[4] != '' && board[8] != '') {
+                if (board[0] == board[4] && board[0] == board[8] ) {
+                    return getPlayerSymbol();
+                }
+            }
+
+            if (board[2] != '' && board[4] != '' && board[6] != '') {
+                if (board[2] == board[4] && board[2] == board[6] ) {
+                    return getPlayerSymbol();
+                }
+            }
+        };
+        console.log(checkDiagonals());
+        const checkAll = () => {
+            return checkColumns() || checkRows() || checkDiagonals();
+        };
+        return{checkAll};
     });
-
-
-
 
     boardinit();
     return {
