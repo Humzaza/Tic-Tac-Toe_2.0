@@ -1,7 +1,7 @@
 
 const GameBoard = (() => {
     'use strict';
-    const board = ['1', '', '', '2', '', '', '3', '', ''];
+    const board = ['', '', '', '', '', '', '', '', ''];
     const playersList = [];
     const boardinit = () => { 
         renderToDivs();
@@ -59,14 +59,24 @@ const GameBoard = (() => {
         board[index] = value;
     };
 
-    const checkRows = () => {
-        let tempBoard = board;
-        let boardrow1 = tempBoard.splice(0,2);
-        let boardrow2 = tempBoard.splice(3);
-        let boardrow3 = tempBoard;
-        console.log(boardrow1);
-        console.log(boardrow2);
-        console.log(boardrow3);
+    const checkRows = () => { 
+        if (board[0] != '' && board[1] != '' && board[2] != '') {
+            if (board[0] == board[1] && board[0] == board[2] ) {
+                console.log('wins');
+            }
+        }
+
+        if (board[3] != '' && board[4] != '' && board[5] != '') {
+            if (board[3] == board[4] && board[3] == board[5]) {
+                console.log('wins2');
+            }
+        }
+        
+        if (board[6] != '' && board[7] != '' && board[8] != '') {
+            if (board[6] == board[7] && board[6] == board[8]) {
+                console.log('wins3');
+            }
+        }
 
     };
     
