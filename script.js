@@ -156,7 +156,7 @@ const GameBoard = (() => {
                 }
             }
         };
-        
+
         const checkAll = () => {
             return checkColumns() || checkRows() || checkDiagonals();
         };
@@ -175,8 +175,8 @@ const GameBoard = (() => {
 
 
 
-let p1 = PlayersFactory('joe', 'X');
-let p2 = PlayersFactory('mama', 'O');
+// let p1 = PlayersFactory('joe', 'X');
+// let p2 = PlayersFactory('mama', 'O');
 
 function PlayersFactory(name, symbol) {   
     let turn = false;
@@ -190,4 +190,21 @@ function PlayersFactory(name, symbol) {
         turn
     };
 }
+
+const getMenuInfo = (() => {
+    
+    const getNames = () => {
+        const p1Name = document.querySelector('.p1Name').value;
+        const p2Name = document.querySelector('.p2Name').value;
+        PlayersFactory(p1Name, 'X');
+        PlayersFactory(p2Name, 'O');
+    };
+
+    const getPickedPlayers = () => {
+        
+    };
+
+    document.querySelector('.startBut').addEventListener('click', getNames);
+
+})();
 
