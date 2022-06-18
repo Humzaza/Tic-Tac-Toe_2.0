@@ -74,7 +74,7 @@ const GameBoard = (() => {
     const declareWinner = () => {
             let winner = document.querySelector('.winner');
             console.log(winner);
-            winner.textContent = `winner is ${getPlayerName()}`;
+            winner.textContent = `${getPlayerName()} Won!!`;
     };
 
 
