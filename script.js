@@ -196,14 +196,56 @@ const getMenuInfo = (() => {
     const getNames = () => {
         const p1Name = document.querySelector('.p1Name').value;
         const p2Name = document.querySelector('.p2Name').value;
+        const menu = document.querySelector('.menu');
         PlayersFactory(p1Name, 'X');
         PlayersFactory(p2Name, 'O');
+        menu.style.display = 'none';
     };
-
+    
     const getPickedPlayers = () => {
-        
-    };
+        const player1Human = document.querySelector('#p1H');
+        const player1Computer = document.querySelector('#p1C');
+        const player2Human = document.querySelector('#p2H');
+        const player2Computer = document.querySelector('#p2C');
 
+        player1Pick = [];
+        player1Pick.push(player1Human, player1Computer);
+        
+        player2Pick = [];
+        player2Pick.push(player2Human, player2Computer);
+
+        player1Pick.forEach((button) => {
+            button.addEventListener('click', (event) => {
+                let currentId = event.target.id;
+                if (event.target.id == 'p1H') {
+                    player1Human.style.backgroundColor = 'green';
+                    player1Computer.style.backgroundColor = 'red';
+                }
+                if (event.target.id == 'p1C') {
+                    player1Human.style.backgroundColor = 'red';
+                    player1Computer.style.backgroundColor = 'green';
+                }
+                
+            });
+        });
+
+        player2Pick.forEach((button) => {
+            button.addEventListener('click', (event) => {
+                let currentId = event.target.id;
+                if (event.target.id == 'p2H') {
+                    player2Human.style.backgroundColor = 'green';
+                    player2Computer.style.backgroundColor = 'red';
+                }
+                if (event.target.id == 'p2C') {
+                    player2Human.style.backgroundColor = 'red';
+                    player2Computer.style.backgroundColor = 'green';
+                }
+                
+            });
+        });
+
+    };
+    getPickedPlayers();
     document.querySelector('.startBut').addEventListener('click', getNames);
 
 })();
